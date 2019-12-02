@@ -1,12 +1,14 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
-    private static String pathToFolder = "D:\\doksztalcanie\\Intellij\\powtorka\\src\\files";
+    private static String pathToFolder = "D:\\doksztalcanie\\Intellij\\Farm\\src\\main\\resources";
     private BarnManager barnManager;
     private AnimalMenager animalMenager;
     private FileWriterAndReader fwr;
     private DatabaseReader databaseReader;
     private Scanner scanner = new Scanner(System.in);
+
 
     public static String getPathToFolder() {
         return pathToFolder;
@@ -36,7 +38,7 @@ public class Menu {
                     barnManager.saveBarnToFile(barn, pathToFile);
                     break;
                 case ("2"):
-                    animalMenager.createNewAnimalAndAddToList(AnimalSpecies.COW, 3, true);
+                    animalMenager.createNewAnimalAndAddToList();
                     break;
                 case ("3"):
                     showAllBarns();
@@ -52,11 +54,21 @@ public class Menu {
                     //        showMostNumerousAnimalSpecies();
                     break;
                 case ("7"):
-                    //        deleteSelectedBarnAndAssignedAnimals();
+                    deleteSelectedBarnAndAssignedAnimals();
                     break;
             }
 
         } while (!answer.equalsIgnoreCase("exit"));
+    }
+
+    private void deleteSelectedBarnAndAssignedAnimals() {
+        System.out.println("Provide the barn ID to be deleted");
+        int id = scanner.nextInt();
+        try {
+            barnManager.deleteSelectedBarn(id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAllBarns() {
@@ -75,7 +87,7 @@ public class Menu {
         System.out.println("3 - show all barns");
         System.out.println("4 - show barn with most animals");
         System.out.println("5 - show five oldest animals");
-        System.out.println("6 - delete a barn with all the animals");
+        System.out.println("7 - delete a barn with all the animals");
         System.out.println("exit");
 
     }

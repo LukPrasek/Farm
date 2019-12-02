@@ -1,0 +1,1 @@
+1:Stodola:['PIG-3-false', 'DOG-2-false', 'CAT-3-false', 'DOG-2-false', 'CAT-2-true']

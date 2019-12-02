@@ -22,12 +22,7 @@ public class FileWriterAndReader {
         return file.list();
     }
 
-    public boolean checkIfFileExists() {
-        return fileToFolder.exists();
-    }
-
-    public boolean checkIfFileIsNotEmpty(String pathToFile) {
-        //File file = new File(pathToFile);
+    public boolean checkIfFileIsNotEmpty() {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(fileToFolder);
@@ -81,5 +76,18 @@ public class FileWriterAndReader {
             e.printStackTrace();
         }
         return stringBuilder.toString();
+    }
+
+    public void deleteFile(String pathToFile) throws IOException {
+        File file = new File(pathToFile);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        InputStreamReader fileInputStreamReader = new InputStreamReader(fileInputStream);
+        fileInputStream.close();
+        fileInputStreamReader.close();
+        if (file.delete()) {
+            System.out.println("File deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
     }
 }
