@@ -67,5 +67,3 @@ public class Barn {
         return id + ":" + name + ":" + animalList;
     }
 }
-
-}
