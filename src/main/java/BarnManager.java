@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 public class BarnManager {
@@ -19,26 +20,32 @@ public class BarnManager {
         String[] filesInCatalog = fileWriterAndReader.getAllFilesFromCatalog();
         for (int i = 0; i < filesInCatalog.length; i++) {
             if (filesInCatalog[i].equalsIgnoreCase(barnID + ".txt")) {
-                fileWriterAndReader.deleteFile(Menu.getPathToFolder()+"\\"+barnID + ".txt");
+                fileWriterAndReader.deleteFile(Menu.getPathToFolder() + "\\" + barnID + ".txt");
             }
         }
     }
-        public void saveBarnToFile (Barn barn, String pathToFile){
-            FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(pathToFile);
-            fileWriterAndReader.writeObjectToFile(barn);
-        }
 
-        public void addAnimalToBarn (Animal animal){
-
-            barn.getAnimalList().add(animal);
-        }
-
-        public void addAnimalToSpecificBarn (Animal animal, Barn barn){
-            barn.getAnimalList().add(animal);
-        }
-
-        public void showAllBarns () {
-            barns = DatabaseReader.getBarnList();
-            barns.forEach(System.out::println);
-        }
+    public void saveBarnToFile(Barn barn, String pathToFile) {
+        FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(pathToFile);
+        fileWriterAndReader.writeObjectToFile(barn);
     }
+
+    public void addAnimalToBarn(Animal animal) {
+        barn.getAnimalList().add(animal);
+    }
+
+    public void addAnimalToSpecificBarn(Animal animal, Barn barn) {
+        barn.getAnimalList().add(animal);
+    }
+
+    public void showAllBarns() {
+        barns = DatabaseReader.getBarnList();
+        barns.forEach(System.out::println);
+    }
+
+    public void showBarnWithMostAnimals() {
+        barns = DatabaseReader.getBarnList();
+        Barn barn = barns.stream().max(Comparator.comparingInt(x -> x.getAnimalList().size())).get();
+        System.out.println(barn.toString());
+    }
+}

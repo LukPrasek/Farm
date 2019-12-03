@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
-    private static String pathToFolder = "D:\\doksztalcanie\\Intellij\\Farm\\src\\main\\resources";
+    private static String pathToFolder = ".\\src\\main\\resources";
     private BarnManager barnManager;
     private AnimalMenager animalMenager;
     private FileWriterAndReader fwr;
@@ -44,14 +44,13 @@ public class Menu {
                     showAllBarns();
                     break;
                 case ("4"):
-                    //        showBarnWithMostAnimals();
+                    barnManager.showBarnWithMostAnimals();
                     break;
                 case ("5"):
-
-                    //        showFiveOldestAnimals();
+                    animalMenager.showFiveOldestAnimals();
                     break;
                 case ("6"):
-                    //        showMostNumerousAnimalSpecies();
+                    animalMenager.showMostNumerousAnimalSpecies();
                     break;
                 case ("7"):
                     deleteSelectedBarnAndAssignedAnimals();
@@ -61,8 +60,10 @@ public class Menu {
         } while (!answer.equalsIgnoreCase("exit"));
     }
 
+
     private void deleteSelectedBarnAndAssignedAnimals() {
         System.out.println("Provide the barn ID to be deleted");
+        barnManager.showAllBarns();
         int id = scanner.nextInt();
         try {
             barnManager.deleteSelectedBarn(id);
@@ -87,7 +88,8 @@ public class Menu {
         System.out.println("3 - show all barns");
         System.out.println("4 - show barn with most animals");
         System.out.println("5 - show five oldest animals");
-        System.out.println("7 - delete a barn with all the animals");
+        System.out.println("6 - show most numerous animal species");
+        System.out.println("7 - delete the barn with all the animals");
         System.out.println("exit");
 
     }

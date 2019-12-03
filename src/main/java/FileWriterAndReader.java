@@ -12,17 +12,17 @@ public class FileWriterAndReader {
         fileToFolder = new File(pathToFolder);
     }
 
-    public void createNewFile(String pathToFile) throws IOException {
-        File file = new File(pathToFile);
-        file.createNewFile();
-    }
+//    public void createNewFile(String pathToFile) throws IOException {
+//        File file = new File(pathToFile);
+//        file.createNewFile();
+//    }
 
     public String[] getAllFilesFromCatalog() {
         File file = new File(path);
         return file.list();
     }
 
-    public boolean checkIfFileIsNotEmpty() {
+    public boolean checkIfFileIsNotEmpty() throws IOException {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(fileToFolder);
@@ -34,7 +34,11 @@ public class FileWriterAndReader {
             b = fis.read();
         } catch (IOException e) {
             e.printStackTrace();
+
+        }finally {
+            fis.close();
         }
+
         if (b == -1) {
             return false;
         } else {
@@ -72,18 +76,17 @@ public class FileWriterAndReader {
                 stringBuilder.append("\n");
 
             }
+            fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return stringBuilder.toString();
     }
 
-    public void deleteFile(String pathToFile) throws IOException {
+    public void deleteFile(String pathToFile) {
         File file = new File(pathToFile);
-        FileInputStream fileInputStream = new FileInputStream(file);
-        InputStreamReader fileInputStreamReader = new InputStreamReader(fileInputStream);
-        fileInputStream.close();
-        fileInputStreamReader.close();
+        //System.out.println("sciezka do folderu"+file.getAbsolutePath());
         if (file.delete()) {
             System.out.println("File deleted successfully");
         } else {

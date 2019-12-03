@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,10 +22,15 @@ public class DatabaseReader {
             for (String fileName : filesInCatalog) {
                 fileToRead = new File(pathToFolder + "\\" + fileName);
                 FileWriterAndReader fwr = new FileWriterAndReader(fileToRead.getPath());
-                if (fwr.checkIfFileIsNotEmpty()) {//fileToRead.getPath())
-                    barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));
+                try {
+                    if (fwr.checkIfFileIsNotEmpty()) {//fileToRead.getPath())
+                        barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+
         }
     }
 
@@ -57,11 +63,15 @@ public class DatabaseReader {
             stringBuilder.append(matcher.group());
             stringBuilder.append(":");
         }
+        createAnimalObjectWithRegex(animalSpeciesMapper, stringBuilder);
+    }
+
+    private void createAnimalObjectWithRegex(AnimalSpeciesMapper animalSpeciesMapper, StringBuilder stringBuilder) {
         if (stringBuilder.toString().length()>2) {
-            String[] singleAnimalDataFromTable = stringBuilder.toString().split(":");//3:Obora:[]      2:Chlew:['PIG-2-true']
+            String[] singleAnimalDataFromTable = stringBuilder.toString().split(":");
 
             for (int i = 0; i < singleAnimalDataFromTable.length; i++) {
-                String[] animalClassFieldsInTable = singleAnimalDataFromTable[i].split("-");//'CAT-3-true', 'CAT-3-true'
+                String[] animalClassFieldsInTable = singleAnimalDataFromTable[i].split("-");
                 Animal animal = new Animal();
                 animal.setAnimalSpecies(animalSpeciesMapper.mapToAnimalGrade(animalClassFieldsInTable[0]));
                 animal.setAge(Integer.parseInt(animalClassFieldsInTable[1]));
