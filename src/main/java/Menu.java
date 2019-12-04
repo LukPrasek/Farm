@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Menu {
     private static String pathToFolder = ".\\src\\main\\resources";
     private BarnManager barnManager;
-    private AnimalMenager animalMenager;
+    private AnimalManager animalManager;
     private FileWriterAndReader fwr;
     private DatabaseReader databaseReader;
     private Scanner scanner = new Scanner(System.in);
@@ -16,12 +16,11 @@ public class Menu {
 
     public Menu() {
         barnManager = new BarnManager();
-        animalMenager = new AnimalMenager();
+        animalManager = new AnimalManager();
         databaseReader = new DatabaseReader();
     }
 
     public void startApp() {
-
         executeCases();
     }
 
@@ -38,25 +37,24 @@ public class Menu {
                     barnManager.saveBarnToFile(barn, pathToFile);
                     break;
                 case ("2"):
-                    animalMenager.createNewAnimalAndAddToList();
+                    animalManager.createNewAnimalAndAddToList();
                     break;
                 case ("3"):
-                    showAllBarns();
+                    barnManager.showAllBarns();
                     break;
                 case ("4"):
                     barnManager.showBarnWithMostAnimals();
                     break;
                 case ("5"):
-                    animalMenager.showFiveOldestAnimals();
+                    animalManager.showFiveOldestAnimals();
                     break;
                 case ("6"):
-                    animalMenager.showMostNumerousAnimalSpecies();
+                    animalManager.showMostNumerousAnimalSpecies();
                     break;
                 case ("7"):
                     deleteSelectedBarnAndAssignedAnimals();
                     break;
             }
-
         } while (!answer.equalsIgnoreCase("exit"));
     }
 
@@ -70,10 +68,6 @@ public class Menu {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void showAllBarns() {
-        barnManager.showAllBarns();
     }
 
     private String getDataFromUserForBarnCreation() {
