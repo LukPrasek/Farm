@@ -6,11 +6,10 @@ import java.util.regex.Pattern;
 
 public class DatabaseReader {
     private Barn barn;
-    private static LinkedList<Barn> barnListReadFromFile;
+    private static LinkedList<Barn> barnListReadFromFile= new LinkedList<>();
     private FileWriterAndReader fileWriterAndReader;
 
     public DatabaseReader() {
-        barnListReadFromFile = new LinkedList<>();
         fileWriterAndReader = new FileWriterAndReader(Menu.getPathToFolder());
     }
 
@@ -30,7 +29,6 @@ public class DatabaseReader {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 

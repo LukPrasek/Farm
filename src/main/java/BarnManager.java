@@ -1,21 +1,32 @@
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class BarnManager {
     private Barn barn;
-    private List<Barn> barns;
 
     public BarnManager() {
     }
 
-    public Barn createNewBarn(String name) {
-        barn = new Barn(name);
+    public Barn createNewBarn() {
+        barn = new Barn(getDataFromUserForBarnCreation());
+        String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
+        saveBarnToFile(barn, pathToFile);
         return barn;
     }
 
-    public void deleteSelectedBarn(int barnID) throws IOException {
+    private String getDataFromUserForBarnCreation() {
+        System.out.println("Give the name of the barn");
+        Scanner scanner = new Scanner(System.in);
+        String answer=scanner.next();
+        return answer;
+    }
 
+    public void deleteSelectedBarn() {
+        System.out.println("Provide the barn ID to be deleted");
+        showAllBarns();
+        Scanner scanner = new Scanner(System.in);
+        int barnID = scanner.nextInt();
         FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(Menu.getPathToFolder());
         String[] filesInCatalog = fileWriterAndReader.getAllFilesFromCatalog();
         for (int i = 0; i < filesInCatalog.length; i++) {
@@ -23,6 +34,7 @@ public class BarnManager {
                 fileWriterAndReader.deleteFile(Menu.getPathToFolder() + "\\" + barnID + ".txt");
             }
         }
+        scanner.close();
     }
 
     public void saveBarnToFile(Barn barn, String pathToFile) {
@@ -39,12 +51,12 @@ public class BarnManager {
     }
 
     public void showAllBarns() {
-        barns = DatabaseReader.getBarnList();
-        barns.forEach(System.out::println);
+        List<Barn> list = DatabaseReader.getBarnList();
+        list.forEach(System.out::println);
     }
 
     public void showBarnWithMostAnimals() {
-        barns = DatabaseReader.getBarnList();
+        List<Barn> barns = DatabaseReader.getBarnList();
         Barn barn = barns.stream().max(Comparator.comparingInt(x -> x.getAnimalList().size())).get();
         System.out.println(barn.toString());
     }

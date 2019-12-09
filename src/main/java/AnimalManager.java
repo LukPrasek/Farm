@@ -34,7 +34,7 @@ public class AnimalManager {
                 break;
             case ("2"):
                 System.out.println("Provide the name of a new barn");
-                Barn barn1 = barnManager.createNewBarn(scanner.nextLine());
+                Barn barn1 = barnManager.createNewBarn();
                 barn1.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole());
                 String pathToNewFile = Menu.getPathToFolder() + "\\" + barn1.getId() + ".txt";
                 barnManager.saveBarnToFile(barn1, pathToNewFile);

@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Menu {
     private static String pathToFolder = ".\\src\\main\\resources";
@@ -8,7 +10,6 @@ public class Menu {
     private FileWriterAndReader fwr;
     private DatabaseReader databaseReader;
     private Scanner scanner = new Scanner(System.in);
-
 
     public static String getPathToFolder() {
         return pathToFolder;
@@ -30,50 +31,37 @@ public class Menu {
             databaseReader.checkIfFileExistsAndReadItIfSo(pathToFolder);
             printOptionList();
             answer = scanner.nextLine();
-            switch (answer) {
-                case ("1"):
-                    Barn barn = barnManager.createNewBarn(getDataFromUserForBarnCreation());
-                    String pathToFile = pathToFolder + "\\" + barn.getId() + ".txt";
-                    barnManager.saveBarnToFile(barn, pathToFile);
-                    break;
-                case ("2"):
-                    animalManager.createNewAnimalAndAddToList();
-                    break;
-                case ("3"):
-                    barnManager.showAllBarns();
-                    break;
-                case ("4"):
-                    barnManager.showBarnWithMostAnimals();
-                    break;
-                case ("5"):
-                    animalManager.showFiveOldestAnimals();
-                    break;
-                case ("6"):
-                    animalManager.showMostNumerousAnimalSpecies();
-                    break;
-                case ("7"):
-                    deleteSelectedBarnAndAssignedAnimals();
-                    break;
+            if (checkAnswerCorrectness(answer)) {
+                switch (answer) {
+                    case ("1"):
+                        barnManager.createNewBarn();
+                        break;
+                    case ("2"):
+                        animalManager.createNewAnimalAndAddToList();
+                        break;
+                    case ("3"):
+                        barnManager.showAllBarns();
+                        break;
+                    case ("4"):
+                        barnManager.showBarnWithMostAnimals();
+                        break;
+                    case ("5"):
+                        animalManager.showFiveOldestAnimals();
+                        break;
+                    case ("6"):
+                        animalManager.showMostNumerousAnimalSpecies();
+                        break;
+                    case ("7"):
+                        barnManager.deleteSelectedBarn();
+                        break;
+                }
+            } else {
+                System.out.println("Wrong input number, try again");
             }
-        } while (!answer.equalsIgnoreCase("exit"));
-    }
-
-
-    private void deleteSelectedBarnAndAssignedAnimals() {
-        System.out.println("Provide the barn ID to be deleted");
-        barnManager.showAllBarns();
-        int id = scanner.nextInt();
-        try {
-            barnManager.deleteSelectedBarn(id);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        while (!answer.equalsIgnoreCase("exit"));
     }
 
-    private String getDataFromUserForBarnCreation() {
-        System.out.println("Give the name of the barn");
-        return scanner.next();
-    }
 
     private void printOptionList() {
         System.out.println("What would you like to do");
@@ -86,5 +74,17 @@ public class Menu {
         System.out.println("7 - delete the barn with all the animals");
         System.out.println("exit");
 
+    }
+
+    private boolean checkAnswerCorrectness(String answer) {
+        String regex = "^([1-7])$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(answer);
+        if (matcher.find()) {
+            System.out.println(matcher.find());
+            return true;
+        } else {
+            return false;
+        }
     }
 }
