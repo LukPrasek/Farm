@@ -19,6 +19,7 @@ public class BarnManager {
         System.out.println("Give the name of the barn");
         Scanner scanner = new Scanner(System.in);
         String answer=scanner.next();
+        scanner.close();
         return answer;
     }
 
@@ -40,14 +41,6 @@ public class BarnManager {
     public void saveBarnToFile(Barn barn, String pathToFile) {
         FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(pathToFile);
         fileWriterAndReader.writeObjectToFile(barn);
-    }
-
-    public void addAnimalToBarn(Animal animal) {
-        barn.getAnimalList().add(animal);
-    }
-
-    public void addAnimalToSpecificBarn(Animal animal, Barn barn) {
-        barn.getAnimalList().add(animal);
     }
 
     public void showAllBarns() {

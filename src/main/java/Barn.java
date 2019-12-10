@@ -58,6 +58,8 @@ public class Barn {
         return animalList;
     }
 
+
+
     public void setAnimalList(List<Animal> animalList) {
         this.animalList = animalList;
     }

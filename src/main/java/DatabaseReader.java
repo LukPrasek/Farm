@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 public class DatabaseReader {
     private Barn barn;
     private static LinkedList<Barn> barnListReadFromFile= new LinkedList<>();
+    private static LinkedList<Animal> animalListReadFromFile= new LinkedList<>();
     private FileWriterAndReader fileWriterAndReader;
 
     public DatabaseReader() {
@@ -14,8 +15,8 @@ public class DatabaseReader {
     }
 
     public void checkIfFileExistsAndReadItIfSo(String pathToFolder) {
-
         String[] filesInCatalog = fileWriterAndReader.getAllFilesFromCatalog();
+        barnListReadFromFile = new LinkedList<>();
         if (filesInCatalog.length > 0) {
             File fileToRead;
             for (String fileName : filesInCatalog) {
@@ -40,7 +41,7 @@ public class DatabaseReader {
         if (singleWordsInLineTable.length > 2) {
             String animalListAsString = singleWordsInLineTable[2];
             if (animalListAsString.length() > 2) {//brackets [] are visible in file even if the Animal list is empty
-                barn.setAnimalList(mapStringToAnimalObject(singleWordsInLineTable[2]));
+                barn.setAnimalList(mapStringToAnimalObject(animalListAsString));
             }
         }
         return barn;
@@ -57,7 +58,7 @@ public class DatabaseReader {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(s);
         StringBuilder stringBuilder = new StringBuilder();
-          while (matcher.find()) {
+        while (matcher.find()) {
             stringBuilder.append(matcher.group());
             stringBuilder.append(":");
         }
@@ -65,7 +66,7 @@ public class DatabaseReader {
     }
 
     private void createAnimalObjectWithRegex(AnimalSpeciesMapper animalSpeciesMapper, StringBuilder stringBuilder) {
-        if (stringBuilder.toString().length()>2) {
+        if (stringBuilder.toString().length() > 2) {
             String[] singleAnimalDataFromTable = stringBuilder.toString().split(":");
 
             for (int i = 0; i < singleAnimalDataFromTable.length; i++) {
@@ -73,7 +74,8 @@ public class DatabaseReader {
                 Animal animal = new Animal();
                 animal.setAnimalSpecies(animalSpeciesMapper.mapToAnimalGrade(animalClassFieldsInTable[0]));
                 animal.setAge(Integer.parseInt(animalClassFieldsInTable[1]));
-                barn.getAnimalList().add(animal);
+                animalListReadFromFile.add(animal);
+                barn.addAnimalToList(animal);
             }
         }
     }
@@ -82,5 +84,7 @@ public class DatabaseReader {
         return barnListReadFromFile;
     }
 
-
+    public static LinkedList<Animal> getAllAnimalList() {
+        return animalListReadFromFile;
+    }
 }

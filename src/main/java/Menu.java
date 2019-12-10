@@ -10,7 +10,7 @@ public class Menu {
     private FileWriterAndReader fwr;
     private DatabaseReader databaseReader;
     private Scanner scanner = new Scanner(System.in);
-
+//todo add conditions in method with scanner
     public static String getPathToFolder() {
         return pathToFolder;
     }
@@ -27,8 +27,8 @@ public class Menu {
 
     private void executeCases() {
         String answer;
+        databaseReader.checkIfFileExistsAndReadItIfSo(pathToFolder);
         do {
-            databaseReader.checkIfFileExistsAndReadItIfSo(pathToFolder);
             printOptionList();
             answer = scanner.nextLine();
             if (checkAnswerCorrectness(answer)) {

@@ -3,14 +3,12 @@ import java.util.stream.Collectors;
 
 
 public class AnimalManager {
-    private static List<Animal> animalList;
     private BarnManager barnManager = new BarnManager();
     private InputDataFromConsoleForAnimal inputDataFromConsoleForAnimal;
     private Scanner scanner;
 
     public AnimalManager() {
         inputDataFromConsoleForAnimal = new InputDataFromConsoleForAnimal();
-        animalList = new ArrayList<>();
         scanner = new Scanner(System.in);
     }
 
@@ -43,17 +41,11 @@ public class AnimalManager {
     }
 
     public void showFiveOldestAnimals() {
-        getAnimalListFromAllBarns().sort(Comparator.comparingInt(Animal::getAge));
-        animalList.stream().limit(5);
-        animalList.forEach(System.out::println);
+        DatabaseReader.getAllAnimalList().stream().sorted(Comparator.comparingInt(Animal::getAge)).limit(5).forEach(System.out::println);
     }
 
     private List<Animal> getAnimalListFromAllBarns() {
-        List<Barn> barns = DatabaseReader.getBarnList();
-        for (Barn barn : barns) {
-            animalList.addAll(barn.getAnimalList());
-        }
-        return animalList;
+        return DatabaseReader.getAllAnimalList();
     }
 
     public void showMostNumerousAnimalSpecies() {

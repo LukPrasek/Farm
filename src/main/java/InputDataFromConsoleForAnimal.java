@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class InputDataFromConsoleForAnimal {
     private Scanner scanner;
@@ -16,6 +15,15 @@ public class InputDataFromConsoleForAnimal {
         String animalSpeciesName = scanner.next();
         animal.setAnimalSpecies(AnimalSpecies.valueOf(animalSpeciesName.toUpperCase()));
         scanner.nextLine();
+        getVaccinatedDataFromUser(animal);
+        System.out.println("Provide the age");
+        scanner.nextLine();
+        int age = Integer.parseInt(scanner.next());
+        animal.setAge(age);
+        return animal;
+    }
+
+    private void getVaccinatedDataFromUser(Animal animal) {
         System.out.println("Is the animal vaccinated - true or false");
         String vaccinated;
         boolean flag=true;
@@ -29,11 +37,6 @@ public class InputDataFromConsoleForAnimal {
                 flag=true;
             }
         }
-        System.out.println("Provide the age");
-        scanner.nextLine();
-        int age = Integer.parseInt(scanner.next());
-        animal.setAge(age);
-        return animal;
     }
 }
 
