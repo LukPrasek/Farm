@@ -1,13 +1,12 @@
 import java.util.*;
 
 public class InputDataFromConsoleForAnimal {
-    private Scanner scanner;
 
-    public InputDataFromConsoleForAnimal() {
-        scanner = new Scanner(System.in);
-    }
 
-    public Animal getAnimalDataFromUserConsole() {
+    public InputDataFromConsoleForAnimal() {}
+
+    public Animal getAnimalDataFromUserConsole(Scanner scanner) {
+        scanner.nextLine();
         System.out.println("Select the species from the list by providing the name");
         System.out.println(AnimalSpecies.CAT.toString() + "; " + AnimalSpecies.DOG.toString() + "; "
                 + AnimalSpecies.HORSE.toString() + "; " + AnimalSpecies.COW.toString() + "; " + AnimalSpecies.PIG.toString());
@@ -15,7 +14,7 @@ public class InputDataFromConsoleForAnimal {
         String animalSpeciesName = scanner.next();
         animal.setAnimalSpecies(AnimalSpecies.valueOf(animalSpeciesName.toUpperCase()));
         scanner.nextLine();
-        getVaccinatedDataFromUser(animal);
+        getVaccinatedDataFromUser(animal, scanner);
         System.out.println("Provide the age");
         scanner.nextLine();
         int age = Integer.parseInt(scanner.next());
@@ -23,7 +22,7 @@ public class InputDataFromConsoleForAnimal {
         return animal;
     }
 
-    private void getVaccinatedDataFromUser(Animal animal) {
+    private void getVaccinatedDataFromUser(Animal animal, Scanner scanner) {
         System.out.println("Is the animal vaccinated - true or false");
         String vaccinated;
         boolean flag=true;

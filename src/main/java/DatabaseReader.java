@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 public class DatabaseReader {
     private Barn barn;
-    private static LinkedList<Barn> barnListReadFromFile= new LinkedList<>();
-    private static LinkedList<Animal> animalListReadFromFile= new LinkedList<>();
+    private static LinkedList<Barn> barnListReadFromFile;//5= new LinkedList<>();
+    private static LinkedList<Animal> animalListReadFromFile;//= new LinkedList<>();
     private FileWriterAndReader fileWriterAndReader;
 
     public DatabaseReader() {
@@ -17,6 +17,7 @@ public class DatabaseReader {
     public void checkIfFileExistsAndReadItIfSo(String pathToFolder) {
         String[] filesInCatalog = fileWriterAndReader.getAllFilesFromCatalog();
         barnListReadFromFile = new LinkedList<>();
+        animalListReadFromFile= new LinkedList<>();
         if (filesInCatalog.length > 0) {
             File fileToRead;
             for (String fileName : filesInCatalog) {
@@ -54,7 +55,7 @@ public class DatabaseReader {
     }
 
     private void convertStringDataFromTxtIntoAnimalObject(String s, AnimalSpeciesMapper animalSpeciesMapper) {
-        String regex = "\\w+-\\d-\\w+";
+        String regex = "\\w+-\\d+-\\w+";//cow-true-3
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(s);
         StringBuilder stringBuilder = new StringBuilder();
@@ -63,12 +64,12 @@ public class DatabaseReader {
             stringBuilder.append(":");
         }
         createAnimalObjectWithRegex(animalSpeciesMapper, stringBuilder);
+        System.out.println("Wielkosc listy animal w databasereaderze: "+animalListReadFromFile.size());
     }
 
     private void createAnimalObjectWithRegex(AnimalSpeciesMapper animalSpeciesMapper, StringBuilder stringBuilder) {
         if (stringBuilder.toString().length() > 2) {
             String[] singleAnimalDataFromTable = stringBuilder.toString().split(":");
-
             for (int i = 0; i < singleAnimalDataFromTable.length; i++) {
                 String[] animalClassFieldsInTable = singleAnimalDataFromTable[i].split("-");
                 Animal animal = new Animal();

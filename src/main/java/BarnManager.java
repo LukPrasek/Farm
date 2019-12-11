@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class BarnManager {
     private Barn barn;
-
+   // private List<Animal> listOfAllCurrentAnimals;
     public BarnManager() {
     }
 
@@ -19,7 +19,7 @@ public class BarnManager {
         System.out.println("Give the name of the barn");
         Scanner scanner = new Scanner(System.in);
         String answer=scanner.next();
-        scanner.close();
+        //scanner.close();
         return answer;
     }
 

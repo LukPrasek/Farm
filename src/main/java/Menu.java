@@ -27,8 +27,8 @@ public class Menu {
 
     private void executeCases() {
         String answer;
-        databaseReader.checkIfFileExistsAndReadItIfSo(pathToFolder);
         do {
+            databaseReader.checkIfFileExistsAndReadItIfSo(pathToFolder);
             printOptionList();
             answer = scanner.nextLine();
             if (checkAnswerCorrectness(answer)) {
@@ -58,6 +58,7 @@ public class Menu {
             } else {
                 System.out.println("Wrong input number, try again");
             }
+            scanner.close();
         }
         while (!answer.equalsIgnoreCase("exit"));
     }

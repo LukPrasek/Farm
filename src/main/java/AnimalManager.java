@@ -26,14 +26,14 @@ public class AnimalManager {
                 barnManager.showAllBarns();
                 System.out.println("Choose the barn giving the id");
                 Barn barn = DatabaseReader.getBarnList().get(scanner.nextInt() - 1);
-                barn.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole());
+                barn.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole(scanner));
                 String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
                 barnManager.saveBarnToFile(barn, pathToFile);
                 break;
             case ("2"):
                 System.out.println("Provide the name of a new barn");
                 Barn barn1 = barnManager.createNewBarn();
-                barn1.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole());
+                barn1.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole(scanner));
                 String pathToNewFile = Menu.getPathToFolder() + "\\" + barn1.getId() + ".txt";
                 barnManager.saveBarnToFile(barn1, pathToNewFile);
                 break;
@@ -41,7 +41,7 @@ public class AnimalManager {
     }
 
     public void showFiveOldestAnimals() {
-        DatabaseReader.getAllAnimalList().stream().sorted(Comparator.comparingInt(Animal::getAge)).limit(5).forEach(System.out::println);
+        DatabaseReader.getAllAnimalList().stream().sorted(Comparator.comparingInt(Animal::getAge).reversed()).forEach(System.out::println);//limit(10).
     }
 
     private List<Animal> getAnimalListFromAllBarns() {
