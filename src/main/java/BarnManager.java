@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class BarnManager {
     private Barn barn;
-   // private List<Animal> listOfAllCurrentAnimals;
     public BarnManager() {
     }
 
@@ -33,9 +32,11 @@ public class BarnManager {
         for (int i = 0; i < filesInCatalog.length; i++) {
             if (filesInCatalog[i].equalsIgnoreCase(barnID + ".txt")) {
                 fileWriterAndReader.deleteFile(Menu.getPathToFolder() + "\\" + barnID + ".txt");
+            } else {
+                System.out.println("Couln't find file with given name");
             }
         }
-        scanner.close();
+
     }
 
     public void saveBarnToFile(Barn barn, String pathToFile) {

@@ -26,17 +26,22 @@ public class AnimalManager {
                 barnManager.showAllBarns();
                 System.out.println("Choose the barn giving the id");
                 Barn barn = DatabaseReader.getBarnList().get(scanner.nextInt() - 1);
-                barn.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole(scanner));
-                String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
-                barnManager.saveBarnToFile(barn, pathToFile);
+                addCreatedAnimalToListFromBarnClass(barn);
                 break;
             case ("2"):
-                System.out.println("Provide the name of a new barn");
                 Barn barn1 = barnManager.createNewBarn();
-                barn1.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole(scanner));
-                String pathToNewFile = Menu.getPathToFolder() + "\\" + barn1.getId() + ".txt";
-                barnManager.saveBarnToFile(barn1, pathToNewFile);
+                addCreatedAnimalToListFromBarnClass(barn1);
                 break;
+        }
+    }
+
+    private void addCreatedAnimalToListFromBarnClass(Barn barn) {
+        try {
+            barn.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole(scanner));
+            String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
+            barnManager.saveBarnToFile(barn, pathToFile);
+        } catch (IllegalArgumentException exception) {
+            exception.printStackTrace();
         }
     }
 

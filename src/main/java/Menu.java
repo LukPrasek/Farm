@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +9,7 @@ public class Menu {
     private FileWriterAndReader fwr;
     private DatabaseReader databaseReader;
     private Scanner scanner = new Scanner(System.in);
-//todo add conditions in method with scanner
+
     public static String getPathToFolder() {
         return pathToFolder;
     }
@@ -58,7 +57,6 @@ public class Menu {
             } else {
                 System.out.println("Wrong input number, try again");
             }
-            scanner.close();
         }
         while (!answer.equalsIgnoreCase("exit"));
     }

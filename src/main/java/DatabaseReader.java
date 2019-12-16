@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 public class DatabaseReader {
     private Barn barn;
-    private static LinkedList<Barn> barnListReadFromFile;//5= new LinkedList<>();
-    private static LinkedList<Animal> animalListReadFromFile;//= new LinkedList<>();
+    private static LinkedList<Barn> barnListReadFromFile;
+    private static LinkedList<Animal> animalListReadFromFile;
     private FileWriterAndReader fileWriterAndReader;
 
     public DatabaseReader() {
@@ -24,7 +24,7 @@ public class DatabaseReader {
                 fileToRead = new File(pathToFolder + "\\" + fileName);
                 FileWriterAndReader fwr = new FileWriterAndReader(fileToRead.getPath());
                 try {
-                    if (fwr.checkIfFileIsNotEmpty()) {//fileToRead.getPath())
+                    if (fwr.checkIfFileIsNotEmpty()) {
                         barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));
                     }
                 } catch (IOException e) {
@@ -64,7 +64,6 @@ public class DatabaseReader {
             stringBuilder.append(":");
         }
         createAnimalObjectWithRegex(animalSpeciesMapper, stringBuilder);
-        System.out.println("Wielkosc listy animal w databasereaderze: "+animalListReadFromFile.size());
     }
 
     private void createAnimalObjectWithRegex(AnimalSpeciesMapper animalSpeciesMapper, StringBuilder stringBuilder) {
