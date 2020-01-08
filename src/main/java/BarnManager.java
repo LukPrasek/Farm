@@ -22,16 +22,16 @@ public class BarnManager {
         return answer;
     }
 
-    public void deleteSelectedBarn() {
+    public void deleteSelectedBarn(String pathToFolder) {
         System.out.println("Provide the barn ID to be deleted");
         showAllBarns();
         Scanner scanner = new Scanner(System.in);
         int barnID = scanner.nextInt();
-        FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(Menu.getPathToFolder());
+        FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(pathToFolder);
         String[] filesInCatalog = fileWriterAndReader.getAllFilesFromCatalog();
         for (int i = 0; i < filesInCatalog.length; i++) {
             if (filesInCatalog[i].equalsIgnoreCase(barnID + ".txt")) {
-                fileWriterAndReader.deleteFile(Menu.getPathToFolder() + "\\" + barnID + ".txt");
+                fileWriterAndReader.deleteFile(pathToFolder + "\\" + barnID + ".txt");
             } else {
                 System.out.println("Couln't find file with given name");
             }
@@ -41,7 +41,7 @@ public class BarnManager {
 
     public void saveBarnToFile(Barn barn, String pathToFile) {
         FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(pathToFile);
-        fileWriterAndReader.writeObjectToFile(barn);
+        fileWriterAndReader.writeObjectToFile(barn, Menu.getPathToFolder() );
     }
 
     public void showAllBarns() {

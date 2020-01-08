@@ -46,7 +46,7 @@ public class AnimalManager {
     }
 
     public void showFiveOldestAnimals() {
-        DatabaseReader.getAllAnimalList().stream().sorted(Comparator.comparingInt(Animal::getAge).reversed()).forEach(System.out::println);//limit(10).
+        DatabaseReader.getAllAnimalList().stream().sorted(Comparator.comparingInt(Animal::getAge).reversed()).limit(5).forEach(System.out::println);//limit(10).
     }
 
     private List<Animal> getAnimalListFromAllBarns() {

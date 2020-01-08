@@ -3,7 +3,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Menu {
-    private static String pathToFolder = ".\\src\\main\\resources";
+    private static String pathToFolder = ".\\src\\main\\resources\\folderWithBarns";
     private BarnManager barnManager;
     private AnimalManager animalManager;
     private FileWriterAndReader fwr;
@@ -51,7 +51,7 @@ public class Menu {
                         animalManager.showMostNumerousAnimalSpecies();
                         break;
                     case ("7"):
-                        barnManager.deleteSelectedBarn();
+                        barnManager.deleteSelectedBarn(pathToFolder);
                         break;
                 }
             } else {
@@ -80,7 +80,6 @@ public class Menu {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(answer);
         if (matcher.find()) {
-            System.out.println(matcher.find());
             return true;
         } else {
             return false;

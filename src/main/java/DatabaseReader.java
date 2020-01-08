@@ -17,19 +17,17 @@ public class DatabaseReader {
     public void checkIfFileExistsAndReadItIfSo(String pathToFolder) {
         String[] filesInCatalog = fileWriterAndReader.getAllFilesFromCatalog();
         barnListReadFromFile = new LinkedList<>();
-        animalListReadFromFile= new LinkedList<>();
+        animalListReadFromFile = new LinkedList<>();
         if (filesInCatalog.length > 0) {
             File fileToRead;
             for (String fileName : filesInCatalog) {
-                fileToRead = new File(pathToFolder + "\\" + fileName);
-                FileWriterAndReader fwr = new FileWriterAndReader(fileToRead.getPath());
-                try {
-                    if (fwr.checkIfFileIsNotEmpty()) {
-                        barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                String pathToFile = pathToFolder + "\\" + fileName;
+                fileToRead = new File(pathToFile);
+                FileWriterAndReader fwr = new FileWriterAndReader(pathToFolder);
+                if (fwr.checkIfFileIsNotEmpty(pathToFile)) {
+                    barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));
                 }
+
             }
         }
     }

@@ -16,32 +16,18 @@ public class FileWriterAndReader {
         return file.list();
     }
 
-    public boolean checkIfFileIsNotEmpty() throws IOException {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(fileToFolder);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        int b = 0;
-        try {
-            assert fis != null;
-            b = fis.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            fis.close();
-        }
-        if (b == -1) {
+    public boolean checkIfFileIsNotEmpty(String pathToFile) {
+        File file = new File(pathToFile);
+        if (file.length() == 0) {
             return false;
         } else {
             return true;
         }
     }
 
-    public void writeObjectToFile(Barn barn) {
+    public void writeObjectToFile(Barn barn, String pathToFolder) {
         BufferedWriter bufferedWriter;
-        File fileToFile = new File(Menu.getPathToFolder() + "\\" + barn.getId() + ".txt");
+        File fileToFile = new File(pathToFolder + "\\" + barn.getId() + ".txt");
         try {
             FileWriter fileWriter = new FileWriter(fileToFile, false);
             bufferedWriter = new BufferedWriter(fileWriter);
@@ -65,7 +51,6 @@ public class FileWriterAndReader {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
                 stringBuilder.append("\n");
-
             }
             fileReader.close();
         } catch (IOException e) {
