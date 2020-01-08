@@ -59,25 +59,20 @@ public class AnimalManager {
     }
 
     public void countFrequencies(List<String> list) {
-        Map<String, Integer> hm = new HashMap<>();
-        for (String i : list) {
-            Integer j = hm.get(i);
-            hm.put(i, (j == null) ? 1 : j + 1);
-        }
-        ArrayList<Integer> al = new ArrayList<>(hm.values());
-        int max = 0;
-        for (Integer anAl : al) {
-            if (anAl > max) {
-                max = anAl;
+        Map<String, Long> couterMap = list.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+        sortbykey(couterMap);
+    }
+
+    public static void sortbykey(Map<String, Long> map) {
+        TreeMap<String, Long> sorted = new TreeMap<>();
+        sorted.putAll(map);
+        // Display the TreeMap which is naturally sorted
+        long maxValueInMap = (Collections.max(sorted.values()));  // This will return max value in the Hashmap
+        for (Map.Entry<String, Long> entry : map.entrySet()) {  // Itrate through hashmap
+            if (entry.getValue() == maxValueInMap) {
+                System.out.println("Species with most occurances: " + entry.getKey() + " - " +maxValueInMap + " times.");
             }
         }
-        String word = "";
-        for (Map.Entry<String, Integer> entry : hm.entrySet()) {
-            if (Objects.equals(entry.getValue(), max)) {
-                word = entry.getKey();
-            }
-        }
-        System.out.println("Species with most occurances: " + word + " - " + max + " times.");
     }
 }
 
