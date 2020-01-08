@@ -16,7 +16,7 @@ public class FileWriterAndReaderTest {
     @Test
     public void shouldReturnStringTableWithFileNames() {//getAllFilesFromCatalog
         //given
-        int expectedTableSize = 2;
+        int expectedTableSize = 3;
         //when
         String[] actualTable = fwr.getAllFilesFromCatalog();
         //then
