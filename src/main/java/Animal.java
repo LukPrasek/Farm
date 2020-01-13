@@ -5,38 +5,28 @@ public class Animal implements Comparable {
     private int age;
     private boolean isVaccinated;
 
-    public Animal() {
-    }
 
-    public Animal(AnimalSpecies animalSpecies, int age, boolean isVaccinated) {
+    private Animal(AnimalSpecies animalSpecies, int age, boolean isVaccinated) {
         this.animalSpecies = animalSpecies;
         this.age = age;
         this.isVaccinated = isVaccinated;
     }
 
+    public static Builder anAnimalBuilder() {
+
+        return new Builder();
+    }
 
     public AnimalSpecies getAnimalSpecies() {
         return animalSpecies;
-    }
-
-    public void setAnimalSpecies(AnimalSpecies animalSpecies) {
-        this.animalSpecies = animalSpecies;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public boolean isVaccinated() {
         return isVaccinated;
-    }
-
-    public void setVaccinated(boolean vaccinated) {
-        isVaccinated = vaccinated;
     }
 
     @Override
@@ -68,5 +58,36 @@ public class Animal implements Comparable {
             return Boolean.compare(isVaccinated, animal.isVaccinated);
         }
     }
+
+    public static final class Builder {
+        private AnimalSpecies animalSpecies;
+        private int age;
+        private boolean isVaccinated;
+
+        private Builder() {
+        }
+
+
+        public Builder withAnimalSpecies(AnimalSpecies animalSpecies) {
+            this.animalSpecies = animalSpecies;
+            return this;
+        }
+
+        public Builder withAge(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public Builder withIsVaccinated(boolean isVaccinated) {
+            this.isVaccinated = isVaccinated;
+            return this;
+        }
+
+        public Animal build() {
+            return new Animal(animalSpecies, age, isVaccinated);
+        }
+    }
+
+
 }
 

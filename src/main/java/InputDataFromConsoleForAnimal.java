@@ -13,15 +13,15 @@ public class InputDataFromConsoleForAnimal {
         System.out.println("Select the species from the list by providing the name");
         System.out.println(AnimalSpecies.CAT.toString() + "; " + AnimalSpecies.DOG.toString() + "; "
                 + AnimalSpecies.HORSE.toString() + "; " + AnimalSpecies.COW.toString() + "; " + AnimalSpecies.PIG.toString());
-        Animal animal = new Animal();
         String animalSpeciesName = scanner.next();
-        animal.setAnimalSpecies(AnimalSpecies.valueOf(animalSpeciesName.toUpperCase()));
-        getVaccinatedDataFromUser(animal, scanner);
-        getAgeOfAnimalFromUser(scanner, animal);
-        return animal;
+        return Animal.anAnimalBuilder()
+                .withAnimalSpecies(AnimalSpecies.valueOf(animalSpeciesName.toUpperCase()))
+                .withIsVaccinated(getVaccinatedDataFromUser(scanner))
+                .withAge(getAgeOfAnimalFromUser(scanner))
+                .build();
     }
 
-    private void getAgeOfAnimalFromUser(Scanner scanner, Animal animal) {
+    private int getAgeOfAnimalFromUser(Scanner scanner) {
         while (true) {
             System.out.println("Provide the age");
             String ageString = scanner.next();
@@ -29,24 +29,20 @@ public class InputDataFromConsoleForAnimal {
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(ageString);
             if (matcher.matches()) {
-                int age = Integer.parseInt(ageString);
-                animal.setAge(age);
-                break;
+                return Integer.parseInt(ageString);
             } else {
                 System.out.println("Wrong input, try again giving the number");
             }
         }
     }
 
-    private void getVaccinatedDataFromUser(Animal animal, Scanner scanner) {
+    private boolean getVaccinatedDataFromUser(Scanner scanner) {
         System.out.println("Is the animal vaccinated - true or false");
         String vaccinated;
-
         while (true) {
             vaccinated = scanner.next();
             if (((vaccinated.equalsIgnoreCase("true")) || vaccinated.equalsIgnoreCase("false"))) {
-                animal.setVaccinated(Boolean.parseBoolean(vaccinated));
-                break;
+                return Boolean.parseBoolean(vaccinated);
             } else {
                 System.out.println("Wrong input, try again write true or false");
             }

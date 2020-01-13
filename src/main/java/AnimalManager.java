@@ -20,18 +20,26 @@ public class AnimalManager {
     }
 
     private void createOrSelectBarnToAssignAnAnimal() {
-        String userAnswer = scanner.nextLine();
-        switch (userAnswer) {
-            case ("1"):
-                barnManager.showAllBarns();
-                System.out.println("Choose the barn giving the id");
-                Barn barn = DatabaseReader.getBarnList().get(scanner.nextInt() - 1);
-                addCreatedAnimalToListFromBarnClass(barn);
-                break;
-            case ("2"):
-                Barn barn1 = barnManager.createNewBarn();
-                addCreatedAnimalToListFromBarnClass(barn1);
-                break;
+        String userAnswer;
+        while (true) {
+            userAnswer = scanner.nextLine();
+            if (userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("2")) {
+                switch (userAnswer) {
+                    case ("1"):
+                        barnManager.showAllBarns();
+                        System.out.println("Choose the barn giving the id");
+                        int userBarnId = scanner.nextInt() - 1;
+                        Barn barn = DatabaseReader.getBarnList().get(scanner.nextInt() - 1);
+                        addCreatedAnimalToListFromBarnClass(barn);
+                        break;
+                    case ("2"):
+                        Barn barn1 = barnManager.createNewBarn();
+                        addCreatedAnimalToListFromBarnClass(barn1);
+                        break;
+                }
+            } else {
+                System.out.println("Wrong input, try again");
+            }
         }
     }
 
@@ -70,7 +78,7 @@ public class AnimalManager {
         long maxValueInMap = (Collections.max(sorted.values()));  // This will return max value in the Hashmap
         for (Map.Entry<String, Long> entry : map.entrySet()) {  // Itrate through hashmap
             if (entry.getValue() == maxValueInMap) {
-                System.out.println("Species with most occurances: " + entry.getKey() + " - " +maxValueInMap + " times.");
+                System.out.println("Species with most occurances: " + entry.getKey() + " - " + maxValueInMap + " times.");
             }
         }
     }

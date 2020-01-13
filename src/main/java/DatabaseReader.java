@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,9 +68,13 @@ public class DatabaseReader {
             String[] singleAnimalDataFromTable = stringBuilder.toString().split(":");
             for (int i = 0; i < singleAnimalDataFromTable.length; i++) {
                 String[] animalClassFieldsInTable = singleAnimalDataFromTable[i].split("-");
-                Animal animal = new Animal();
-                animal.setAnimalSpecies(animalSpeciesMapper.mapToAnimalGrade(animalClassFieldsInTable[0]));
-                animal.setAge(Integer.parseInt(animalClassFieldsInTable[1]));
+                Animal animal = Animal.anAnimalBuilder()
+                        .withAnimalSpecies(animalSpeciesMapper.mapToAnimalGrade(animalClassFieldsInTable[0]))
+                        .withAge(Integer.parseInt(animalClassFieldsInTable[1]))
+                        .withIsVaccinated(Boolean.parseBoolean(animalClassFieldsInTable[2]))
+                        .build();
+//                animal.setAnimalSpecies(animalSpeciesMapper.mapToAnimalGrade(animalClassFieldsInTable[0]));
+//                animal.setAge(Integer.parseInt(animalClassFieldsInTable[1]));
                 animalListReadFromFile.add(animal);
                 barn.addAnimalToList(animal);
             }
