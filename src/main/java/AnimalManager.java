@@ -68,10 +68,10 @@ public class AnimalManager {
 
     public void countFrequencies(List<String> list) {
         Map<String, Long> couterMap = list.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
-        sortbykey(couterMap);
+        sortByKey(couterMap);
     }
 
-    public static void sortbykey(Map<String, Long> map) {
+    public static void sortByKey(Map<String, Long> map) {
         TreeMap<String, Long> sorted = new TreeMap<>();
         sorted.putAll(map);
         // Display the TreeMap which is naturally sorted

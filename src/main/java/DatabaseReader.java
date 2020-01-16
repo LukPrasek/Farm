@@ -26,17 +26,18 @@ public class DatabaseReader {
                 if (fwr.checkIfFileIsNotEmpty(pathToFile)) {
                     barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));
                 }
-
             }
         }
     }
 
     private Barn mapStringToBarnObjects(String string) {
-        barn = new Barn();
         String[] singleWordsInLineTable = string.split(":");
-        barn.setId(Integer.parseInt(singleWordsInLineTable[0]));
-        barn.setName(singleWordsInLineTable[1]);
-        if (singleWordsInLineTable.length > 2) {
+        barn = Barn.barnBuilder()
+                .withId(Integer.parseInt(singleWordsInLineTable[0]))
+                .withName(singleWordsInLineTable[1])
+                .build();
+        System.out.println("Stodoła z mapowania" + barn.getName());
+          if (singleWordsInLineTable.length > 2) {
             String animalListAsString = singleWordsInLineTable[2];
             if (animalListAsString.length() > 2) {//brackets [] are visible in file even if the Animal list is empty
                 barn.setAnimalList(mapStringToAnimalObject(animalListAsString));
@@ -73,8 +74,7 @@ public class DatabaseReader {
                         .withAge(Integer.parseInt(animalClassFieldsInTable[1]))
                         .withIsVaccinated(Boolean.parseBoolean(animalClassFieldsInTable[2]))
                         .build();
-//                animal.setAnimalSpecies(animalSpeciesMapper.mapToAnimalGrade(animalClassFieldsInTable[0]));
-//                animal.setAge(Integer.parseInt(animalClassFieldsInTable[1]));
+                System.out.println("Animal z pliku" + animal.toString());
                 animalListReadFromFile.add(animal);
                 barn.addAnimalToList(animal);
             }

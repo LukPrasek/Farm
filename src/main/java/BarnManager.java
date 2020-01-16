@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 public class BarnManager {
     private Barn barn;
+
     public BarnManager() {
     }
 
     public Barn createNewBarn() {
-        barn = new Barn(getDataFromUserForBarnCreation());
+        barn = Barn.barnBuilder().withName(getDataFromUserForBarnCreation()).build();
         String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
         saveBarnToFile(barn, pathToFile);
         return barn;
@@ -17,7 +18,7 @@ public class BarnManager {
     private String getDataFromUserForBarnCreation() {
         System.out.println("Give the name of the barn");
         Scanner scanner = new Scanner(System.in);
-        String answer=scanner.next();
+        String answer = scanner.next();
         //scanner.close();
         return answer;
     }
@@ -36,12 +37,11 @@ public class BarnManager {
                 System.out.println("Couln't find file with given name");
             }
         }
-
     }
 
     public void saveBarnToFile(Barn barn, String pathToFile) {
         FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(pathToFile);
-        fileWriterAndReader.writeObjectToFile(barn, Menu.getPathToFolder() );
+        fileWriterAndReader.writeObjectToFile(barn, Menu.getPathToFolder());
     }
 
     public void showAllBarns() {

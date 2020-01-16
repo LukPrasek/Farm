@@ -9,8 +9,7 @@ public class InputDataFromConsoleForAnimal {
     }
 
     public Animal getAnimalDataFromUserConsole(Scanner scanner) throws IllegalArgumentException {
-        // scanner.nextLine();
-        System.out.println("Select the species from the list by providing the name");
+         System.out.println("Select the species from the list by providing the name");
         System.out.println(AnimalSpecies.CAT.toString() + "; " + AnimalSpecies.DOG.toString() + "; "
                 + AnimalSpecies.HORSE.toString() + "; " + AnimalSpecies.COW.toString() + "; " + AnimalSpecies.PIG.toString());
         String animalSpeciesName = scanner.next();

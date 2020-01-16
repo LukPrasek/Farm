@@ -13,7 +13,6 @@ public class Animal implements Comparable {
     }
 
     public static Builder anAnimalBuilder() {
-
         return new Builder();
     }
 
@@ -63,9 +62,6 @@ public class Animal implements Comparable {
         private AnimalSpecies animalSpecies;
         private int age;
         private boolean isVaccinated;
-
-        private Builder() {
-        }
 
 
         public Builder withAnimalSpecies(AnimalSpecies animalSpecies) {
