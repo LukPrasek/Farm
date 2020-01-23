@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,35 +25,35 @@ public class DatabaseReader {
                 fileToRead = new File(pathToFile);
                 FileWriterAndReader fwr = new FileWriterAndReader(pathToFolder);
                 if (fwr.checkIfFileIsNotEmpty(pathToFile)) {
-                    barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));
+                    barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));//fwr.readFile(fileToRead)=1:Obora:null
                 }
             }
         }
     }
 
-    private Barn mapStringToBarnObjects(String string) {
+    private Barn mapStringToBarnObjects(String string) {//1:Obora:null
         String[] singleWordsInLineTable = string.split(":");
+        List<Animal> tempList = new LinkedList<>();
+        if (singleWordsInLineTable.length > 2) {
+            String animalListAsString = singleWordsInLineTable[2];
+            if (animalListAsString.length() > 2) {//brackets [] are visible in file even if the Animal list is empty
+                tempList = mapStringToAnimalObject(animalListAsString);
+            }
+        }
         barn = Barn.barnBuilder()
                 .withId(Integer.parseInt(singleWordsInLineTable[0]))
                 .withName(singleWordsInLineTable[1])
+                .withAnimalList(tempList)
                 .build();
-        System.out.println("Stodoła z mapowania" + barn.getName());
-          if (singleWordsInLineTable.length > 2) {
-            String animalListAsString = singleWordsInLineTable[2];
-            if (animalListAsString.length() > 2) {//brackets [] are visible in file even if the Animal list is empty
-                barn.setAnimalList(mapStringToAnimalObject(animalListAsString));
-            }
-        }
         return barn;
     }
 
-    private LinkedList<Animal> mapStringToAnimalObject(String s) {
+    private List<Animal> mapStringToAnimalObject(String s) {
         AnimalSpeciesMapper animalSpeciesMapper = new AnimalSpeciesMapper();
-        convertStringDataFromTxtIntoAnimalObject(s, animalSpeciesMapper);
-        return (LinkedList<Animal>) barn.getAnimalList();
+        return convertStringDataFromTxtIntoAnimalObject(s, animalSpeciesMapper);
     }
 
-    private void convertStringDataFromTxtIntoAnimalObject(String s, AnimalSpeciesMapper animalSpeciesMapper) {
+    private List<Animal> convertStringDataFromTxtIntoAnimalObject(String s, AnimalSpeciesMapper animalSpeciesMapper) {
         String regex = "\\w+-\\d+-\\w+";//cow-true-3
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(s);
@@ -61,10 +62,11 @@ public class DatabaseReader {
             stringBuilder.append(matcher.group());
             stringBuilder.append(":");
         }
-        createAnimalObjectWithRegex(animalSpeciesMapper, stringBuilder);
+        return createAnimalObjectsWithRegex(animalSpeciesMapper, stringBuilder);
     }
 
-    private void createAnimalObjectWithRegex(AnimalSpeciesMapper animalSpeciesMapper, StringBuilder stringBuilder) {
+    private List<Animal> createAnimalObjectsWithRegex(AnimalSpeciesMapper animalSpeciesMapper, StringBuilder stringBuilder) {
+        List<Animal> tempList = new LinkedList<>();
         if (stringBuilder.toString().length() > 2) {
             String[] singleAnimalDataFromTable = stringBuilder.toString().split(":");
             for (int i = 0; i < singleAnimalDataFromTable.length; i++) {
@@ -74,11 +76,11 @@ public class DatabaseReader {
                         .withAge(Integer.parseInt(animalClassFieldsInTable[1]))
                         .withIsVaccinated(Boolean.parseBoolean(animalClassFieldsInTable[2]))
                         .build();
-                System.out.println("Animal z pliku" + animal.toString());
                 animalListReadFromFile.add(animal);
-                barn.addAnimalToList(animal);
+                tempList.add(animal);
             }
         }
+        return tempList;
     }
 
     public static LinkedList<Barn> getBarnList() {

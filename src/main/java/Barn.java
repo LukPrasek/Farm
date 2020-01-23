@@ -5,10 +5,10 @@ public class Barn {
 
     private int id = 0;
     private String name;
-    private List<Animal> animalList = new LinkedList<>();
+    private List<Animal> animalList;
 
-    public Barn() {
-    }
+//    public Barn() {
+//    }
 
     private Barn(String name, List<Animal> animalList) {
         this.id = createNewOrSetId();
@@ -26,6 +26,7 @@ public class Barn {
     }
 
     public void addAnimalToList(Animal animal) {
+        System.out.println(animal.toString()+"z metody add");
         animalList.add(animal);
     }
 
