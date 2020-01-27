@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="FileWriterAndReaderTest" time="0.046" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="FileWriterAndReaderTest" time="0.172" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
     <property name="java.specification.version" value="11"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="D:\doksztalcanie\Intellij\Farm\target\test-classes;D:\doksztalcanie\Intellij\Farm\target\classes;C:\Users\Lukas\.m2\repository\junit\junit\4.13\junit-4.13.jar;C:\Users\Lukas\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.class.path" value="D:\doksztalcanie\Intellij\Farm\target\test-classes;D:\doksztalcanie\Intellij\Farm\target\classes;C:\Users\Lukas\.m2\repository\junit\junit\4.13\junit-4.13.jar;C:\Users\Lukas\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Lukas\.m2\repository\org\mockito\mockito-all\1.10.19\mockito-all-1.10.19.jar;"/>
     <property name="java.vm.vendor" value="JetBrains s.r.o"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -17,9 +17,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.2.2\jbr\bin"/>
-    <property name="sun.java.command" value="C:\Users\Lukas\AppData\Local\Temp\surefire9324946822970810476\surefirebooter13863011993425596359.jar C:\Users\Lukas\AppData\Local\Temp\surefire9324946822970810476 2020-01-08T22-23-27_389-jvmRun1 surefire9278830654366908820tmp surefire_04030364996974230544tmp"/>
+    <property name="sun.java.command" value="C:\Users\Lukas\AppData\Local\Temp\surefire15937693644054753617\surefirebooter3819758448036787593.jar C:\Users\Lukas\AppData\Local\Temp\surefire15937693644054753617 2020-01-27T23-04-22_713-jvmRun1 surefire13613788101902252649tmp surefire_04080396597353635447tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="D:\doksztalcanie\Intellij\Farm\target\test-classes;D:\doksztalcanie\Intellij\Farm\target\classes;C:\Users\Lukas\.m2\repository\junit\junit\4.13\junit-4.13.jar;C:\Users\Lukas\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="surefire.test.class.path" value="D:\doksztalcanie\Intellij\Farm\target\test-classes;D:\doksztalcanie\Intellij\Farm\target\classes;C:\Users\Lukas\.m2\repository\junit\junit\4.13\junit-4.13.jar;C:\Users\Lukas\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Lukas\.m2\repository\org\mockito\mockito-all\1.10.19\mockito-all-1.10.19.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Lukas"/>
     <property name="user.language" value="en"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\Lukas\AppData\Local\Temp\surefire9324946822970810476\surefirebooter13863011993425596359.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Lukas\AppData\Local\Temp\surefire15937693644054753617\surefirebooter3819758448036787593.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.5+10-b520.17"/>
@@ -60,7 +60,9 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
+  <testcase name="shouldWriteBarnObjectToFile" classname="FileWriterAndReaderTest" time="0.125"/>
   <testcase name="shouldReturnTrueWhileCheckingFileIsNotEmpty" classname="FileWriterAndReaderTest" time="0"/>
+  <testcase name="shouldNotReadFile" classname="FileWriterAndReaderTest" time="0"/>
   <testcase name="shouldReturnFalseWhileCheckingFileIsNotEmpty" classname="FileWriterAndReaderTest" time="0"/>
   <testcase name="shouldReturnStringTableWithFileNames" classname="FileWriterAndReaderTest" time="0"/>
 </testsuite>

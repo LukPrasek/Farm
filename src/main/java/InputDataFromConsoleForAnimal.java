@@ -13,7 +13,7 @@ public class InputDataFromConsoleForAnimal {
         System.out.println(AnimalSpecies.CAT.toString() + "; " + AnimalSpecies.DOG.toString() + "; "
                 + AnimalSpecies.HORSE.toString() + "; " + AnimalSpecies.COW.toString() + "; " + AnimalSpecies.PIG.toString());
         String animalSpeciesName = scanner.next();
-        return Animal.anAnimalBuilder()
+               return Animal.anAnimalBuilder()
                 .withAnimalSpecies(AnimalSpecies.valueOf(animalSpeciesName.toUpperCase()))
                 .withIsVaccinated(getVaccinatedDataFromUser(scanner))
                 .withAge(getAgeOfAnimalFromUser(scanner))

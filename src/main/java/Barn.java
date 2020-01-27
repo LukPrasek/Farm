@@ -7,18 +7,10 @@ public class Barn {
     private String name;
     private List<Animal> animalList;
 
-//    public Barn() {
-//    }
-
     private Barn(String name, List<Animal> animalList) {
         this.id = createNewOrSetId();
         this.name = name;
         this.animalList = animalList;
-    }
-
-    public Barn(String name) {
-        this.id = createNewOrSetId();
-        this.name = name;
     }
 
     public static final BarnBuilder barnBuilder() {
@@ -26,7 +18,6 @@ public class Barn {
     }
 
     public void addAnimalToList(Animal animal) {
-        System.out.println(animal.toString()+"z metody add");
         animalList.add(animal);
     }
 
@@ -78,7 +69,6 @@ public class Barn {
         private List<Animal> animalList;
 
         public BarnBuilder withId(int id) {
-            //this.id = createNewOrSetId();
             this.id = id;
             return this;
         }

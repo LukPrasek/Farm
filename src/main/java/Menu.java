@@ -3,7 +3,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Menu {
-    private static String pathToFolder = ".\\src\\main\\resources\\folderWithBarns";
+    private static String pathToFolder = ".\\src\\main\\resources\\folderWithBarns\\";
     private BarnManager barnManager;
     private AnimalManager animalManager;
     private FileWriterAndReader fwr;
@@ -21,13 +21,17 @@ public class Menu {
     }
 
     public void startApp() {
-        executeCases();
+        try {
+            executeCases();
+        } catch (FarmException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void executeCases() {
+    private void executeCases() throws FarmException {
         String answer;
         do {
-            databaseReader.checkIfFileExistsAndReadItIfSo(pathToFolder);
+            databaseReader.readFilesFromFolder(pathToFolder);
             printOptionList();
             answer = scanner.nextLine();
             if (checkAnswerCorrectness(answer)) {

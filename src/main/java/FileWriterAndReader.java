@@ -25,7 +25,7 @@ public class FileWriterAndReader {
         }
     }
 
-    public void writeObjectToFile(Barn barn, String pathToFolder) {
+    public void writeObjectToFile(Barn barn, String pathToFolder) throws FarmException {
         BufferedWriter bufferedWriter;
         File fileToFile = new File(pathToFolder + "\\" + barn.getId() + ".txt");
         try {
@@ -38,11 +38,11 @@ public class FileWriterAndReader {
             System.out.println("File saved");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FarmException("Wrong path");
         }
     }
 
-    public String readFile(File file) {
+    public String readFile(File file) throws FarmException {
         StringBuilder stringBuilder = new StringBuilder();
         try {
             FileReader fileReader = new FileReader(file.getPath());
@@ -54,9 +54,8 @@ public class FileWriterAndReader {
             }
             fileReader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FarmException("Wrong path to file");
         }
-
         return stringBuilder.toString();
     }
 

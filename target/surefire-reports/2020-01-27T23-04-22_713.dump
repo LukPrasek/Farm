@@ -1,4 +1,4 @@
-# Created at 2020-01-08T21:20:54.688
+# Created at 2020-01-27T23:04:23.041
 Boot Manifest-JAR contains absolute paths in classpath D:\doksztalcanie\Intellij\Farm\target\test-classes
 java.lang.IllegalArgumentException: 'other' has different root
 	at java.base/sun.nio.fs.WindowsPath.relativize(WindowsPath.java:404)
@@ -38,7 +38,7 @@ java.lang.IllegalArgumentException: 'other' has different root
 	at org.codehaus.classworlds.Launcher.main(Launcher.java:47)
 
 
-# Created at 2020-01-08T21:20:54.688
+# Created at 2020-01-27T23:04:23.041
 Boot Manifest-JAR contains absolute paths in classpath D:\doksztalcanie\Intellij\Farm\target\classes
 java.lang.IllegalArgumentException: 'other' has different root
 	at java.base/sun.nio.fs.WindowsPath.relativize(WindowsPath.java:404)

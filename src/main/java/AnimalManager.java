@@ -12,14 +12,14 @@ public class AnimalManager {
         scanner = new Scanner(System.in);
     }
 
-    public void createNewAnimalAndAddToList() {
+    public void createNewAnimalAndAddToList() throws FarmException {
         System.out.println("To create new animal, first select or create new barn");
         System.out.println("1-select existing barn by providing the id");
         System.out.println("2- create a new barn");
         createOrSelectBarnToAssignAnAnimal();
     }
 
-    private void createOrSelectBarnToAssignAnAnimal() {
+    private void createOrSelectBarnToAssignAnAnimal() throws FarmException {
         String userAnswer;
         while (true) {
             userAnswer = scanner.nextLine();
@@ -43,13 +43,13 @@ public class AnimalManager {
         }
     }
 
-    private void addCreatedAnimalToListFromBarnClass(Barn barn) {
+    private void addCreatedAnimalToListFromBarnClass(Barn barn) throws FarmException {
         try {
             barn.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole(scanner));
             String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
             barnManager.saveBarnToFile(barn, pathToFile);
-        } catch (IllegalArgumentException exception) {
-            exception.printStackTrace();
+        } catch (IllegalArgumentException | FarmException exception) {
+            throw new FarmException("Illegal argument of Animal species-enum");
         }
     }
 
@@ -72,15 +72,15 @@ public class AnimalManager {
     }
 
     public static void sortByKey(Map<String, Long> map) {
-        TreeMap<String, Long> sorted = new TreeMap<>();
-        sorted.putAll(map);
+        TreeMap<String, Long> sorted = new TreeMap<>(map);
         // Display the TreeMap which is naturally sorted
         long maxValueInMap = (Collections.max(sorted.values()));  // This will return max value in the Hashmap
-        for (Map.Entry<String, Long> entry : map.entrySet()) {  // Itrate through hashmap
+        for (Map.Entry<String, Long> entry : map.entrySet()) {  // Iterate through hashmap
             if (entry.getValue() == maxValueInMap) {
                 System.out.println("Species with most occurances: " + entry.getKey() + " - " + maxValueInMap + " times.");
             }
         }
     }
 }
+
 

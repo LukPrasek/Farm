@@ -1,6 +1,14 @@
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 
 public class FileWriterAndReaderTest {
@@ -26,20 +34,44 @@ public class FileWriterAndReaderTest {
     @Test
     public void shouldReturnTrueWhileCheckingFileIsNotEmpty() {
         //given
-        String pathToFile =".\\src\\test\\resourcesForTest\\1.txt";
+        String pathToFile = ".\\src\\test\\resourcesForTest\\1.txt";
         //when
         boolean actual = fwr.checkIfFileIsNotEmpty(pathToFile);
         //then
-        Assert.assertTrue(actual);
+        assertTrue(actual);
     }
+
     @Test
     public void shouldReturnFalseWhileCheckingFileIsNotEmpty() {
         //given
-        String pathToFile =".\\src\\test\\resourcesForTest\\3.txt";
+        String pathToFile = ".\\src\\test\\resourcesForTest\\0.txt";
         //when
         boolean actual = fwr.checkIfFileIsNotEmpty(pathToFile);
         //then
         Assert.assertFalse(actual);
     }
 
+    @Test
+    public void shouldWriteBarnObjectToFile() throws FarmException {
+        //given
+        String pathToTempFile = "D:\\doksztalcanie\\Intellij\\Farm\\src\\test\\resourcesForTest\\3.txt";
+        Barn barnMock = Mockito.mock(Barn.class);
+        FileWriterAndReader fwr = new FileWriterAndReader("D:\\doksztalcanie\\Intellij\\Farm\\src\\test\\resourcesForTest");
+        //when
+        when(barnMock.getId()).thenReturn(3);
+        fwr.writeObjectToFile(barnMock, pathToFolder);
+        File file = new File(pathToTempFile);
+        //then
+        assertTrue(file.exists());
+        fwr.deleteFile(pathToTempFile);
+
+    }
+
+    @Test(expected = FarmException.class)
+    public void shouldNotReadFile() throws FarmException {
+        //given
+        String pathToTempFile = "D:\\doksztalcanie\\Intellij\\Farm\\src\\test\\resourcesForTest\\3.txt";
+        File file = new File(pathToTempFile);
+        fwr.readFile(file);
+    }
 }

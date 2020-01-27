@@ -1,0 +1,16 @@
+Barn$1.class
+Animal$Builder.class
+Barn$BarnBuilder.class
+DatabaseReader.class
+Barn.class
+AnimalSpecies.class
+BarnManager.class
+Main.class
+AnimalManager.class
+InputDataFromConsoleForAnimal.class
+FarmException.class
+FileWriterAndReader.class
+Animal.class
+Menu.class
+AnimalSpeciesMapper.class
+Animal$1.class

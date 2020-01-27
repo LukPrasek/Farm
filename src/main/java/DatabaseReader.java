@@ -14,7 +14,7 @@ public class DatabaseReader {
         fileWriterAndReader = new FileWriterAndReader(Menu.getPathToFolder());
     }
 
-    public void checkIfFileExistsAndReadItIfSo(String pathToFolder) {
+    public void readFilesFromFolder(String pathToFolder) {
         String[] filesInCatalog = fileWriterAndReader.getAllFilesFromCatalog();
         barnListReadFromFile = new LinkedList<>();
         animalListReadFromFile = new LinkedList<>();
@@ -25,7 +25,11 @@ public class DatabaseReader {
                 fileToRead = new File(pathToFile);
                 FileWriterAndReader fwr = new FileWriterAndReader(pathToFolder);
                 if (fwr.checkIfFileIsNotEmpty(pathToFile)) {
-                    barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));//fwr.readFile(fileToRead)=1:Obora:null
+                    try {
+                        barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));//fwr.readFile(fileToRead)=1:Obora:null
+                    } catch (FarmException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

@@ -8,7 +8,7 @@ public class BarnManager {
     public BarnManager() {
     }
 
-    public Barn createNewBarn() {
+    public Barn createNewBarn() throws FarmException {
         barn = Barn.barnBuilder().withName(getDataFromUserForBarnCreation()).build();
         String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
         saveBarnToFile(barn, pathToFile);
@@ -39,7 +39,7 @@ public class BarnManager {
         }
     }
 
-    public void saveBarnToFile(Barn barn, String pathToFile) {
+    public void saveBarnToFile(Barn barn, String pathToFile) throws FarmException {
         FileWriterAndReader fileWriterAndReader = new FileWriterAndReader(pathToFile);
         fileWriterAndReader.writeObjectToFile(barn, Menu.getPathToFolder());
     }
