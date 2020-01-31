@@ -4,26 +4,28 @@ import java.util.Scanner;
 
 public class BarnManager {
     private Barn barn;
+    private ScannerAsker scannerAsker;
 
     public BarnManager() {
+        scannerAsker = new ScannerAsker(System.in, System.out);
     }
 
     public Barn createNewBarn() throws FarmException {
-        barn = Barn.barnBuilder().withName(getDataFromUserForBarnCreation()).build();
+        barn = Barn.barnBuilder().withName(scannerAsker.askString("Give the name of the barn")).build();
         String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
         saveBarnToFile(barn, pathToFile);
         return barn;
     }
 
-    private String getDataFromUserForBarnCreation() {
-        System.out.println("Give the name of the barn");
-        Scanner scanner = new Scanner(System.in);
-        String answer = scanner.next();
-        //scanner.close();
-        return answer;
-    }
+//    private String getDataFromUserForBarnCreation() {
+//        System.out.println("Give the name of the barn");
+//        Scanner scanner = new Scanner(System.in);
+//        String answer = scanner.next();
+//        //scanner.close();
+//        return answer;
+//    }
 
-    public void deleteSelectedBarn(String pathToFolder) {
+    public void deleteSelectedBarn(String pathToFolder) throws WrongIdException {
         System.out.println("Provide the barn ID to be deleted");
         showAllBarns();
         Scanner scanner = new Scanner(System.in);
@@ -34,7 +36,7 @@ public class BarnManager {
             if (filesInCatalog[i].equalsIgnoreCase(barnID + ".txt")) {
                 fileWriterAndReader.deleteFile(pathToFolder + "\\" + barnID + ".txt");
             } else {
-                System.out.println("Couln't find file with given name");
+                throw new WrongIdException("Wrong barn ID");
             }
         }
     }

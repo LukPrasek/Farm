@@ -8,22 +8,22 @@ public class InputDataFromConsoleForAnimal {
     public InputDataFromConsoleForAnimal() {
     }
 
-    public Animal getAnimalDataFromUserConsole(Scanner scanner) throws IllegalArgumentException {
+    public Animal getAnimalDataFromUserConsole(ScannerAsker scannerAsker) throws IllegalArgumentException {
          System.out.println("Select the species from the list by providing the name");
         System.out.println(AnimalSpecies.CAT.toString() + "; " + AnimalSpecies.DOG.toString() + "; "
                 + AnimalSpecies.HORSE.toString() + "; " + AnimalSpecies.COW.toString() + "; " + AnimalSpecies.PIG.toString());
-        String animalSpeciesName = scanner.next();
+        String animalSpeciesName = scannerAsker.askString("");
                return Animal.anAnimalBuilder()
                 .withAnimalSpecies(AnimalSpecies.valueOf(animalSpeciesName.toUpperCase()))
-                .withIsVaccinated(getVaccinatedDataFromUser(scanner))
-                .withAge(getAgeOfAnimalFromUser(scanner))
+                .withIsVaccinated(getVaccinatedDataFromUser(scannerAsker))
+                .withAge(getAgeOfAnimalFromUser(scannerAsker))
                 .build();
     }
 
-    private int getAgeOfAnimalFromUser(Scanner scanner) {
+    private int getAgeOfAnimalFromUser(ScannerAsker scannerAsker) {
         while (true) {
-            System.out.println("Provide the age");
-            String ageString = scanner.next();
+            //System.out.println("Provide the age");
+            String ageString = scannerAsker.askString("Provide the age");
             String patternString = "\\d+";
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(ageString);
@@ -35,11 +35,11 @@ public class InputDataFromConsoleForAnimal {
         }
     }
 
-    private boolean getVaccinatedDataFromUser(Scanner scanner) {
-        System.out.println("Is the animal vaccinated - true or false");
+    private boolean getVaccinatedDataFromUser(ScannerAsker scannerAsker) {
+        //System.out.println("Is the animal vaccinated - true or false");
         String vaccinated;
         while (true) {
-            vaccinated = scanner.next();
+            vaccinated = scannerAsker.askString("Is the animal vaccinated - true or false");
             if (((vaccinated.equalsIgnoreCase("true")) || vaccinated.equalsIgnoreCase("false"))) {
                 return Boolean.parseBoolean(vaccinated);
             } else {

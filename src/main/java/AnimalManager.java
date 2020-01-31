@@ -6,30 +6,36 @@ public class AnimalManager {
     private BarnManager barnManager = new BarnManager();
     private InputDataFromConsoleForAnimal inputDataFromConsoleForAnimal;
     private Scanner scanner;
+    private ScannerAsker scannerAsker;
 
     public AnimalManager() {
         inputDataFromConsoleForAnimal = new InputDataFromConsoleForAnimal();
         scanner = new Scanner(System.in);
+        scannerAsker = new ScannerAsker(System.in, System.out);
     }
 
     public void createNewAnimalAndAddToList() throws FarmException {
-        System.out.println("To create new animal, first select or create new barn");
-        System.out.println("1-select existing barn by providing the id");
-        System.out.println("2- create a new barn");
+        //messagePrintOptions();
         createOrSelectBarnToAssignAnAnimal();
+    }
+
+    private String messagePrintOptions() {
+        return "To create new animal, first select or create new barn"+"\n"+
+        "1-select existing barn by providing the id"+"\n"+
+        "2- create a new barn";
     }
 
     private void createOrSelectBarnToAssignAnAnimal() throws FarmException {
         String userAnswer;
         while (true) {
-            userAnswer = scanner.nextLine();
+            userAnswer = scannerAsker.askString(messagePrintOptions());
             if (userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("2")) {
                 switch (userAnswer) {
                     case ("1"):
                         barnManager.showAllBarns();
-                        System.out.println("Choose the barn giving the id");
-                        int userBarnId = scanner.nextInt() - 1;
-                        Barn barn = DatabaseReader.getBarnList().get(scanner.nextInt() - 1);
+                        //System.out.println("Choose the barn giving the id");
+                        int userBarnId = scannerAsker.askInt("Choose the barn giving the id") - 1;
+                        Barn barn = DatabaseReader.getBarnList().get(userBarnId);
                         addCreatedAnimalToListFromBarnClass(barn);
                         break;
                     case ("2"):
@@ -45,7 +51,7 @@ public class AnimalManager {
 
     private void addCreatedAnimalToListFromBarnClass(Barn barn) throws FarmException {
         try {
-            barn.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole(scanner));
+            barn.getAnimalList().add(inputDataFromConsoleForAnimal.getAnimalDataFromUserConsole(scannerAsker));
             String pathToFile = Menu.getPathToFolder() + "\\" + barn.getId() + ".txt";
             barnManager.saveBarnToFile(barn, pathToFile);
         } catch (IllegalArgumentException | FarmException exception) {

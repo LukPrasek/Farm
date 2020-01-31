@@ -10,11 +10,12 @@ public class DatabaseReader {
     private static LinkedList<Animal> animalListReadFromFile;
     private FileWriterAndReader fileWriterAndReader;
 
-    public DatabaseReader() {
-        fileWriterAndReader = new FileWriterAndReader(Menu.getPathToFolder());
+    public DatabaseReader(String pathToFolder) {
+
+        fileWriterAndReader = new FileWriterAndReader(pathToFolder);
     }
 
-    public void readFilesFromFolder(String pathToFolder) {
+    public void readFilesFromFolder(String pathToFolder) throws FarmException {
         String[] filesInCatalog = fileWriterAndReader.getAllFilesFromCatalog();
         barnListReadFromFile = new LinkedList<>();
         animalListReadFromFile = new LinkedList<>();
@@ -25,15 +26,13 @@ public class DatabaseReader {
                 fileToRead = new File(pathToFile);
                 FileWriterAndReader fwr = new FileWriterAndReader(pathToFolder);
                 if (fwr.checkIfFileIsNotEmpty(pathToFile)) {
-                    try {
-                        barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));//fwr.readFile(fileToRead)=1:Obora:null
-                    } catch (FarmException e) {
-                        e.printStackTrace();
-                    }
+                    barnListReadFromFile.add(mapStringToBarnObjects(fwr.readFile(fileToRead)));//fwr.readFile(fileToRead)=1:Obora:null
                 }
             }
         }
     }
+
+
 
     private Barn mapStringToBarnObjects(String string) {//1:Obora:null
         String[] singleWordsInLineTable = string.split(":");

@@ -17,7 +17,7 @@ public class Menu {
     public Menu() {
         barnManager = new BarnManager();
         animalManager = new AnimalManager();
-        databaseReader = new DatabaseReader();
+        databaseReader = new DatabaseReader(Menu.getPathToFolder());
     }
 
     public void startApp() {
@@ -55,7 +55,11 @@ public class Menu {
                         animalManager.showMostNumerousAnimalSpecies();
                         break;
                     case ("7"):
-                        barnManager.deleteSelectedBarn(pathToFolder);
+                        try {
+                            barnManager.deleteSelectedBarn(pathToFolder);
+                        } catch (WrongIdException e) {
+                            e.getMessage();
+                        }
                         break;
                 }
             } else {
