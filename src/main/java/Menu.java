@@ -8,6 +8,7 @@ public class Menu {
     private AnimalManager animalManager;
     private FileWriterAndReader fwr;
     private DatabaseReader databaseReader;
+    private ScannerAsker scannerAsker;
     private Scanner scanner = new Scanner(System.in);
 
     public static String getPathToFolder() {
@@ -18,6 +19,7 @@ public class Menu {
         barnManager = new BarnManager();
         animalManager = new AnimalManager();
         databaseReader = new DatabaseReader(Menu.getPathToFolder());
+        scannerAsker = new ScannerAsker(System.in, System.out);
     }
 
     public void startApp() {
@@ -37,7 +39,7 @@ public class Menu {
             if (checkAnswerCorrectness(answer)) {
                 switch (answer) {
                     case ("1"):
-                        barnManager.createNewBarn();
+                        barnManager.createNewBarn(scannerAsker);
                         break;
                     case ("2"):
                         animalManager.createNewAnimalAndAddToList();
@@ -46,7 +48,7 @@ public class Menu {
                         barnManager.showAllBarns();
                         break;
                     case ("4"):
-                        barnManager.showBarnWithMostAnimals();
+                        System.out.println(barnManager.showBarnWithMostAnimals());
                         break;
                     case ("5"):
                         animalManager.showFiveOldestAnimals();
@@ -56,7 +58,7 @@ public class Menu {
                         break;
                     case ("7"):
                         try {
-                            barnManager.deleteSelectedBarn(pathToFolder);
+                            barnManager.deleteSelectedBarn(scannerAsker,pathToFolder);
                         } catch (WrongIdException e) {
                             e.getMessage();
                         }

@@ -33,13 +33,12 @@ public class AnimalManager {
                 switch (userAnswer) {
                     case ("1"):
                         barnManager.showAllBarns();
-                        //System.out.println("Choose the barn giving the id");
                         int userBarnId = scannerAsker.askInt("Choose the barn giving the id") - 1;
                         Barn barn = DatabaseReader.getBarnList().get(userBarnId);
                         addCreatedAnimalToListFromBarnClass(barn);
                         break;
                     case ("2"):
-                        Barn barn1 = barnManager.createNewBarn();
+                        Barn barn1 = barnManager.createNewBarn(scannerAsker);
                         addCreatedAnimalToListFromBarnClass(barn1);
                         break;
                 }
