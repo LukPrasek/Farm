@@ -40,7 +40,7 @@ public class BarnManagerTest {
         //given
 
         //when
-        when(scannerAsker.askInt("Provide the barn ID to be deleted")).thenReturn(10);
+        when(scannerAsker.askInt("Provide the barn ID to be deleted")).thenReturn(10);//
         databaseReader.readFilesFromFolder(pathToFolder);
         //than
         barnManager.deleteSelectedBarn(scannerAsker, pathToFolder);
@@ -55,7 +55,6 @@ public class BarnManagerTest {
         when(scannerAsker.askInt("Provide the barn ID to be deleted")).thenReturn(10);
         databaseReader.readFilesFromFolder(pathToFolder);
         //than
-        ;
         Assert.assertEquals(barnManager.showBarnWithMostAnimals().getName(), barnNameWithMostAnimals);
     }
 }

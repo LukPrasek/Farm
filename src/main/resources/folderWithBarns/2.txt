@@ -1,1 +1,1 @@
-2:Stajnia:['HORSE-19-false', 'COW-3-false', 'PIG-1-false', 'CAT-6-false', 'CAT-88-false', 'COW-3-true']
+2:Stajnia:['HORSE-19-false', 'COW-3-false', 'PIG-1-false', 'CAT-6-false', 'CAT-88-false', 'COW-3-true', 'CAT-3-true']

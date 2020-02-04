@@ -9,43 +9,48 @@ public class InputDataFromConsoleForAnimal {
     }
 
     public Animal getAnimalDataFromUserConsole(ScannerAsker scannerAsker) throws IllegalArgumentException {
-         System.out.println("Select the species from the list by providing the name");
         System.out.println(AnimalSpecies.CAT.toString() + "; " + AnimalSpecies.DOG.toString() + "; "
                 + AnimalSpecies.HORSE.toString() + "; " + AnimalSpecies.COW.toString() + "; " + AnimalSpecies.PIG.toString());
-        String animalSpeciesName = scannerAsker.askString("");
-               return Animal.anAnimalBuilder()
+        String animalSpeciesName = scannerAsker.askString("Select the species from the list by providing the name");
+
+        return Animal.anAnimalBuilder()
                 .withAnimalSpecies(AnimalSpecies.valueOf(animalSpeciesName.toUpperCase()))
-                .withIsVaccinated(getVaccinatedDataFromUser(scannerAsker))
-                .withAge(getAgeOfAnimalFromUser(scannerAsker))
+                .withIsVaccinated(getVaccinatedDataFromUser(scannerAsker.askString("Is the animal vaccinated - true or false")))
+                .withAge(getAgeOfAnimalFromUser(scannerAsker.askString("Provide the age")))
                 .build();
     }
 
-    private int getAgeOfAnimalFromUser(ScannerAsker scannerAsker) {
-        while (true) {
-            //System.out.println("Provide the age");
-            String ageString = scannerAsker.askString("Provide the age");
-            String patternString = "\\d+";
-            Pattern pattern = Pattern.compile(patternString);
-            Matcher matcher = pattern.matcher(ageString);
+    private int getAgeOfAnimalFromUser(String message) {
+
+        String patternString = "\\d+";
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(message);
+        try {
             if (matcher.matches()) {
-                return Integer.parseInt(ageString);
+                return Integer.parseInt(message);
             } else {
-                System.out.println("Wrong input, try again giving the number");
+                throw new IllegalArgumentException("Age should be Integer and value is set to 0");
             }
+        } catch (IllegalArgumentException a) {
+            a.printStackTrace();
+            System.out.println(a.getMessage());
         }
+        return 0;
     }
 
-    private boolean getVaccinatedDataFromUser(ScannerAsker scannerAsker) {
-        //System.out.println("Is the animal vaccinated - true or false");
-        String vaccinated;
-        while (true) {
-            vaccinated = scannerAsker.askString("Is the animal vaccinated - true or false");
-            if (((vaccinated.equalsIgnoreCase("true")) || vaccinated.equalsIgnoreCase("false"))) {
-                return Boolean.parseBoolean(vaccinated);
+    private boolean getVaccinatedDataFromUser(String message) {
+        try {
+            if (((message.equalsIgnoreCase("true")) || message.equalsIgnoreCase("false"))) {
+                return Boolean.parseBoolean(message);
             } else {
-                System.out.println("Wrong input, try again write true or false");
+                throw new IllegalArgumentException("Wrong input, value is set to false");
             }
+
+        } catch (IllegalArgumentException a) {
+            a.printStackTrace();
+            System.out.println(a.getMessage());
+
         }
+        return false;
     }
 }
-

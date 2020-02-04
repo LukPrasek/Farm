@@ -1,1 +1,1 @@
-1:Stodola:['HORSE-2-false', 'COW-6-false']
+1:Stodola:['DOG-0-true', 'CAT-0-false']

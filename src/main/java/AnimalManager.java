@@ -20,14 +20,15 @@ public class AnimalManager {
     }
 
     private String messagePrintOptions() {
-        return "To create new animal, first select or create new barn"+"\n"+
-        "1-select existing barn by providing the id"+"\n"+
-        "2- create a new barn";
+        return "To create new animal, first select or create new barn" + "\n" +
+                "1-select existing barn by providing the id" + "\n" +
+                "2- create a new barn";
     }
 
     private void createOrSelectBarnToAssignAnAnimal() throws FarmException {
         String userAnswer;
-        while (true) {
+        boolean flag = true;
+        while (flag) {
             userAnswer = scannerAsker.askString(messagePrintOptions());
             if (userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("2")) {
                 switch (userAnswer) {
@@ -45,6 +46,7 @@ public class AnimalManager {
             } else {
                 System.out.println("Wrong input, try again");
             }
+            flag = false;
         }
     }
 
